@@ -1,45 +1,3 @@
-// import 'package:blood_donation/home%20.dart';
-// import 'package:blood_donation/splash.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter/widgets.dart';
-
-// void main() {
-//   runApp(MyApp());
-// }
-
-// class Init {
-//   Init._();
-//   static final instance = Init._();
-//   Future initialize() async {
-//     await Future.delayed(Duration(seconds: 3));
-//   }
-// }
-
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return FutureBuilder(
-//       future: Init.instance.initialize(),
-//       builder: (context, AsyncSnapshot snapshot) {
-//         // Show splash screen while waiting for app resources to load:
-//         if (snapshot.connectionState == ConnectionState.waiting) {
-//           return MaterialApp(
-//               debugShowCheckedModeBanner: false,
-//               theme: ThemeData(primarySwatch: Colors.blueGrey),
-//               home: Splash());
-//         } else {
-//           // Loading is done, return the app:
-//           return MaterialApp(
-//             debugShowCheckedModeBanner: false,
-//             theme: ThemeData(primarySwatch: Colors.blueGrey),
-//             home: WebViewExample(),
-//           );
-//         }
-//       },
-//     );
-//   }
-// }
-
 import 'package:blood_donation/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -75,19 +33,12 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: ThemeData(primarySwatch: Colors.blueGrey),
-            home: MyHomePage(
-                title: 'Blood Donation',
-                url: 'http://hibeeye.com'),
+            home:
+                MyHomePage(title: 'Blood Donation', url: 'http://hibeeye.com'),
           );
         }
       },
     );
-    // MaterialApp(
-    //   theme: ThemeData(
-    //     primarySwatch: Colors.blue,
-    //   ),
-    //   home: MyHomePage(title: 'Blood Donation', url: 'http://hibeeye.com'),
-    // );
   }
 }
 
@@ -134,7 +85,6 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             );
           });
-      // Future.value(true);
     }
   }
 
@@ -143,9 +93,6 @@ class _MyHomePageState extends State<MyHomePage> {
     return WillPopScope(
       onWillPop: () => _onWillPop(context),
       child: Scaffold(
-        // appBar: AppBar(
-        //   title: Text(widget.title),
-        // ),
         body: SafeArea(
             child: Stack(
           children: [
