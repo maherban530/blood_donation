@@ -33,8 +33,7 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: ThemeData(primarySwatch: Colors.blueGrey),
-            home:
-                MyHomePage(title: 'Blood Donation', url: 'http://hibeeye.com'),
+            home: MyHomePage(),
           );
         }
       },
@@ -43,11 +42,6 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title, this.url});
-
-  final String title;
-  final String url;
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
@@ -93,19 +87,36 @@ class _MyHomePageState extends State<MyHomePage> {
     return WillPopScope(
       onWillPop: () => _onWillPop(context),
       child: Scaffold(
+        backgroundColor: Colors.grey.shade300,
+        appBar: AppBar(
+          title: Text(
+            "HIBEEYE",
+            style: TextStyle(color: Colors.black),
+          ),
+          centerTitle: true,
+          elevation: 0,
+          backgroundColor: Colors.white,
+        ),
         body: SafeArea(
             child: Stack(
           children: [
             Center(child: CircularProgressIndicator()),
             WebView(
+              debuggingEnabled: true,
               key: UniqueKey(),
+              onPageStarted: (String url) {
+                print("start");
+              },
+              onPageFinished: (String url) {
+                print("end");
+              },
               onWebViewCreated: (WebViewController webViewController) {
-                _controllerCompleter.future
-                    .then((value) => _controller = value);
+                // _controllerCompleter.future
+                //     .then((value) => _controller = value);
                 _controllerCompleter.complete(webViewController);
               },
               javascriptMode: JavascriptMode.unrestricted,
-              initialUrl: widget.url,
+              initialUrl: 'http://hibeeye.com',
             ),
           ],
         )),
