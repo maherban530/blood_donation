@@ -82,12 +82,47 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  bool show = true;
+
+  // Future delay() async {
+  //   await new Future.delayed(new Duration(seconds: 5), () {
+  //     show = true;
+  //   });
+  // }
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   Timer timer = Timer(Duration(seconds: 3), () {
+  //     setState(() {
+  //       show = false;
+  //     });
+  //   });
+  //   // delay();
+  // }
+  // bool _visible = true;
+  // @override
+  // void initState() {
+  //   super.initState(); //when this route starts, it will execute this code
+  //   Future.delayed(const Duration(seconds: 5), () {
+  //     //asynchronous delay
+  //     if (this.mounted) {
+  //       //checks if widget is still active and not disposed
+  //       setState(() {
+  //         //tells the widget builder to rebuild again because ui has updated
+  //         _visible =
+  //             false; //update the variable declare this under your class so its accessible for both your widget build and initState which is located under widget build{}
+  //       });
+  //     }
+  //   });
+  // }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () => _onWillPop(context),
       child: Scaffold(
-        backgroundColor: Colors.grey.shade300,
+        backgroundColor: Colors.white,
         appBar: AppBar(
           title: Text(
             "HIBEEYE",
@@ -98,26 +133,47 @@ class _MyHomePageState extends State<MyHomePage> {
           backgroundColor: Colors.white,
         ),
         body: SafeArea(
-            child: Stack(
-          children: [
-            Center(child: CircularProgressIndicator()),
-            WebView(
-              key: UniqueKey(),
-              javascriptMode: JavascriptMode.unrestricted,
-              initialUrl: 'http://hibeeye.com',
-              onPageStarted: (String url) {
-                print("start");
-              },
-              onPageFinished: (String url) {
-                print("end");
-              },
-              onWebViewCreated: (WebViewController webViewController) {
-                // _controllerCompleter.future
-                //     .then((value) => _controller = value);
-                _controllerCompleter.complete(webViewController);
-              },
-            ),
-          ],
+            child: SingleChildScrollView(
+          child: Column(
+            children: [
+              // Visibility(
+              //   child: Text(
+              //       "Offline"), //Your widget is gone and won't take up space
+              //   visible: _visible,
+              // ),
+              // show
+              //     ?
+              Center(
+                  child: SizedBox(
+                height: 8,
+                width: 8,
+                child: CircularProgressIndicator(
+                  strokeWidth: 1,
+                  color: Colors.grey.shade200,
+                ),
+              )),
+              //     :
+              Container(
+                height: MediaQuery.of(context).size.height,
+                child: WebView(
+                  key: UniqueKey(),
+                  javascriptMode: JavascriptMode.unrestricted,
+                  initialUrl: 'http://hibeeye.com',
+                  onPageStarted: (String url) {
+                    print("start");
+                  },
+                  onPageFinished: (String url) {
+                    print("end");
+                  },
+                  onWebViewCreated: (WebViewController webViewController) {
+                    _controllerCompleter.future
+                        .then((value) => _controller = value);
+                    _controllerCompleter.complete(webViewController);
+                  },
+                ),
+              ),
+            ],
+          ),
         )),
       ),
     );
