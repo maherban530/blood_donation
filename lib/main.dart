@@ -102,8 +102,9 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             Center(child: CircularProgressIndicator()),
             WebView(
-              debuggingEnabled: true,
               key: UniqueKey(),
+              javascriptMode: JavascriptMode.unrestricted,
+              initialUrl: 'http://hibeeye.com',
               onPageStarted: (String url) {
                 print("start");
               },
@@ -115,8 +116,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 //     .then((value) => _controller = value);
                 _controllerCompleter.complete(webViewController);
               },
-              javascriptMode: JavascriptMode.unrestricted,
-              initialUrl: 'http://hibeeye.com',
             ),
           ],
         )),
